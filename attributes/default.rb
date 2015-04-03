@@ -20,7 +20,7 @@
 #
 
 default['docker-registry']['repository'] = "https://github.com/dotcloud/docker-registry.git"
-default['docker-registry']['revision'] = "0.6.8"
+default['docker-registry']['version'] = "0.6.8"
 
 default['docker-registry']['install_dir'] = "/opt/docker-registry"
 
@@ -50,6 +50,36 @@ default['docker-registry']['certificate_key_path'] = nil
 
 default['docker-registry']['server_name'] = nil
 default['docker-registry']['application_server_role'] = 'docker-registry_application_server'
+
+default['docker-registry']['s3_region'] = 'us-east-1'
+default['docker-registry']['s3_bucket'] = nil
+default['docker-registry']['s3_access_key'] = nil
+default['docker-registry']['s3_secret_key'] = nil
+
+default['docker-registry']['use_cloudfront'] = false
+default['docker-registry']['cloudfront_base_url'] = nil
+default['docker-registry']['cloudfront_key_id'] = nil
+default['docker-registry']['cloudfront_key_secret'] = nil
+
+default['docker-registry']['use_mysql'] = false
+default['docker-registry']['database_host'] = 'locahost'
+default['docker-registry']['database_port'] = 3306
+default['docker-registry']['database_name'] = 'docker_registry'
+default['docker-registry']['database_user'] = nil
+default['docker-registry']['database_password'] = nil
+
+default['docker-registry']['use_redis_cache'] = false
+default['docker-registry']['cache_redis_host'] = 'localhost'
+default['docker-registry']['cache_redis_port'] = 6379
+default['docker-registry']['cache_redis_db'] = 0
+default['docker-registry']['cache_redis_password'] = nil
+
+
+default['docker-registry']['use_redis_cache_lru'] = false
+default['docker-registry']['cache_lru_redis_host'] = 'localhost'
+default['docker-registry']['cache_lru_redis_port'] = 6379
+default['docker-registry']['cache_lru_redis_db'] = 0
+default['docker-registry']['cache_lru_redis_password'] = nil
 
 case node['platform']
   when 'ubuntu'

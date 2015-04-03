@@ -99,7 +99,7 @@ application "docker-registry" do
   group node['docker-registry']['group']
   path node['docker-registry']['install_dir']
   repository node['docker-registry']['repository']
-  revision node['docker-registry']['revision']
+  version node['docker-registry']['version']
   packages node['docker-registry']['packages']
 
   shallow_clone false
@@ -133,7 +133,7 @@ application "docker-registry" do
     ] do
 
       python_pip "#{package}" do
-        virtualenv ::File.join(node['docker-registry']['install_dir'], "env", node['docker-registry']['revision'])
+        virtualenv ::File.join(node['docker-registry']['install_dir'], "env", node['docker-registry']['version'])
         action :upgrade
       end
 
@@ -151,7 +151,7 @@ application "docker-registry" do
     worker_class "gevent"
     app_module "docker_registry.wsgi:application"
     requirements "requirements/main.txt"
-    virtualenv ::File.join(node['docker-registry']['install_dir'], "env", node['docker-registry']['revision'])
+    virtualenv ::File.join(node['docker-registry']['install_dir'], "env", node['docker-registry']['version'])
     environment :SETTINGS_FLAVOR => node['docker-registry']['flavor']
   end
 

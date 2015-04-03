@@ -26,7 +26,7 @@ Attributes
 
 See `attributes/default.rb` for default values.
 
-* `node["docker-registry"]["revision"]` - Git tag to install.
+* `node["docker-registry"]["version"]` - Git tag to install.
 * `node["docker-registry"]["storage"]` - Defines the type of storage to use, local or s3.
 * `node["docker-registry"]["ssl"]` - If ssl should be enabled.
 * `node["docker-registry"]["server_name"]` - The FQDN that NGiNX will proxy for.
@@ -47,7 +47,7 @@ To enable SSL or use S3 as a storage backend a data bag must be created to store
       "ssl_certificate": [
         "....", # SSL Certificate Chain
         "....",
-        "...." 
+        "...."
       ],
       "ssl_certificate_key": "...",
       "s3_secret_key": "..."

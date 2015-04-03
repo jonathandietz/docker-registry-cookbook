@@ -26,9 +26,9 @@ attribute "docker-registry/repository",
   :required => "required",
   :default => "https://github.com/dotcloud/docker-registry.git"
 
-attribute "docker-registry/revision",
-  :display_name => "Docker Registry Revision",
-  :description => "The revision to check out from the repository",
+attribute "docker-registry/version",
+  :display_name => "Docker Registry version",
+  :description => "The version to check out from the repository",
   :type => "string",
   :required => "required"
 

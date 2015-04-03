@@ -1,19 +1,57 @@
 # The `common' part is automatically included (and possibly overriden by all
 # other flavors)
+# https://github.com/docker/docker-registry/blob/master/config/config_sample.yml
+
 common: &common
     storage: <%= @storage %>
     storage_path: <%= @storage_path %>
     secret_key: <%= @secret_key %>
+
     <% if @storage == "s3" -%>
+    s3_region: <%= @s3_region%>
+    s3_bucket: <%= @s3_bucket %>
     s3_access_key: <%= @s3_access_key %>
     s3_secret_key: <%= @s3_secret_key %>
-    s3_bucket: <%= @s3_bucket %>
-    boto_bucket: <%= @s3_bucket %>
     <% end %>
     standalone: <%= @standalone %>
     <% unless @standalone %>
     index_endpoint: <%= @index_endpoint %>
     <% end %>
+
+    <% if @use_mysql %>
+    search_backend: sqlalchemy
+    # SQLite search backend
+    sqlalchemy_index_database: mysql://<%= @database_user %>:<%= @database_password %>@<%= @database_host %>/<%= @database_name %>
+    <% end %>
+
+    <% if @use_redis_cache %>
+    cache:
+        host: <%= @cache_redis_host %>
+        port: <%= @cache_redis_port %>
+        db: <%= @cache_redis_db %>
+        password: <%= @cache_redis_password %>
+    <% end %>
+
+    <% if @use_redis_cache_lru %>
+    # Enabling LRU cache for small files
+    # This speeds up read/write on small files
+    # when using a remote storage backend (like S3).
+    cache_lru:
+        host: <%= @cache_lru_redis_host %>
+        port: <%= @cache_lru_redis_port %>
+        db: <%= @cache_lru_redis_db %>
+        password: <%= @cache_lru_redis_password %>
+    <% end %>
+
+
+<% if @use_cloudfront %>
+cloudfronts3: &cloudfronts3
+    <<: *s3
+    cloudfront:
+        base: <%= @cloudfront_base_url %>
+        keyid: <%= @cloudfront_key_id %>
+        keysecret: <%= @cloudfront_key_secret %>
+<% end %>
 
 # This is the default configuration when no flavor is specified
 dev:
